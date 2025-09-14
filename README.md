@@ -1,4 +1,4 @@
-# NSGA-II Implementation for Bi-objective Optimization (MOP)
+# NSGA-II Implementation for Bi-objective Optimization
 
 ## ( I ) Introduction
 
@@ -10,6 +10,32 @@
   (f1: ∑xᵢ², f2: ∑(xᵢ−2)²)
 - **Visualization:** Python (matplotlib)  
 - **Configurable parameters:** run, dimension, population size, function ID, crossover rate (CR), mutation rate (MR)
+
+### PseudoCode
+```text
+Initialize population P with size N
+Evaluate objectives f1 and f2 for each individual in P
+
+while (NFEs < MaxEvaluations):
+    Perform Fast Non-Dominated Sorting on P
+    Assign Crowding Distance for each front in P
+
+    Generate offspring Q by:
+        - Simulated Binary Crossover (SBX) on selected parents from P
+        - Polynomial Mutation on Q
+
+    Evaluate f1 and f2 for each individual in Q
+
+    Combine P and Q into R = P ∪ Q
+    Perform Fast Non-Dominated Sorting on R
+    Assign Crowding Distance for each front in R
+
+    Select the next generation P from R by:
+        - Picking full fronts until size limit is reached
+        - If a front exceeds the remaining space, select by descending crowding distance
+
+Output final Pareto front (rank 1 individuals)
+```
 
 ---
 
@@ -153,20 +179,27 @@ NSGAII_BiObjective/
 
 ---
 
-## ( VIII ) Sample Result
+## ( VIII ) Experimental Result
 
 <p align="center">
   <img src="results/pareto_SCH_pop100.png" width="60%"/>
 </p>
 
 ---
-
-## ( IX ) How to Extend
-
+## ( IX ) Observations
+- NSGA-II 成功產生平衡分布的 Pareto 前沿，符合原論文 SCH 問題的理論最佳解分布。
+- 前沿族群的個體數量隨參數（如人口大小、迭代次數）而變化，但分布穩定。
 
 ---
+## ( X ) Key Features
+- 非支配排序 (Non-dominated Sorting)：實作基於 fast-non-dominated-sort 的 rank 分層機制。
+- 擁擠距離 (Crowding Distance)：用於維持解的多樣性，並作為前沿層內選擇依據。
+- 自定義目標函數 (Objective Function)：支援多目標測試問題（如 SCH）。
+- 結果輸出模組化 (Modular Output)：nsgaii_fileoutput.h 輸出 f₁, f₂ 到 pareto_run*.csv，方便視覺化。
+- Python 繪圖支援：提供 plot_pareto.py 腳本，自動讀取 .csv 並生成高解析度前沿分布圖。
+---
 
-## ( X ) References
+## ( XI ) References
 
 NSGA-II:   
 [K. Deb, A. Pratap, S. Agarwal, and T. Meyarivan, "A fast and elitist multiobjective genetic algorithm: NSGA-II," _IEEE Transactions on Evolutionary Computation_, vol. 6, no. 2, pp. 182-197, 2002.](http://ieeexplore.ieee.org/document/996017/)
