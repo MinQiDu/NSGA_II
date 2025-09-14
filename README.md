@@ -122,7 +122,7 @@ plt.savefig("pareto_run1.png", dpi=300)
 plt.show()
 ```
 
-#### ✅ 如何跑
+#### 如何跑
 ```bash
 條件: 已存在 pareto_run1.csv
 python plot_pareto_{FunctionName}.py
@@ -156,18 +156,13 @@ NSGAII_BiObjective/
 ## ( VIII ) Sample Result
 
 <p align="center">
-  <img src="temp_results/pareto_run1.png" width="400px"/>
+  <img src="results/pareto_SCH_pop100.png" width="60%"/>
 </p>
 
 ---
 
 ## ( IX ) How to Extend
 
-You can extend this implementation by:
-- Adding more objective functions in `problem.h`
-- Supporting 3 or more objectives (`f3`, `f4`...)
-- Adding metrics like IGD, HV, etc.
-- Using gnuplot to compare multiple runs
 
 ---
 
