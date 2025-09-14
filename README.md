@@ -105,7 +105,7 @@ NSGAII.exe {run} {func_id} {mnfes} {dim} {pop_size} {CR} {MR}
 
 ## ( V ) How to Compile & Run
 
-### 🛠 Compile
+### Compile
 #### 方法 1：MSYS2
 ```bash
 g++ main.cpp -o run.exe -std=c++11
