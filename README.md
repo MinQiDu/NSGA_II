@@ -180,15 +180,22 @@ NSGAII_BiObjective/
 ---
 
 ## ( VIII ) Experimental Result
+### 觀察不同執行策略，Evaluation times 相同的情況下，Pareto Front 分布情形
+#### 執行 1 run, pop_size = 100, Evaluation times = 25000
+<p align="left">
+  <img src="results/pareto_SCH_pop100.png" width="50%"/>
+</p>
 
-<p align="center">
-  <img src="results/pareto_SCH_pop100.png" width="60%"/>
+#### 執行 4 run 後合併前沿, pop_size = 25, Evaluation times = 6250 * 4 = 25000
+<p align="left">
+  <img src="results/pareto_SCH_pop25_4run.png" width="50%"/>
 </p>
 
 ---
 ## ( IX ) Observations
 - NSGA-II 成功產生平衡分布的 Pareto 前沿，符合原論文 SCH 問題的理論最佳解分布。
 - 前沿族群的個體數量隨參數（如人口大小、迭代次數）而變化，但分布穩定。
+- 人口數量大雖然使前沿分布更密，卻不保證收斂程度及分布均勻度高，過大反而導致計算量負擔。
 
 ---
 ## ( X ) Key Features
