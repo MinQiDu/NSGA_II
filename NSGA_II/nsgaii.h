@@ -1,4 +1,4 @@
-#ifndef NSGAII_H
+ï»¿#ifndef NSGAII_H
 #define NSGAII_H
 
 #include <vector>
@@ -15,31 +15,31 @@ class NSGAII {
 public:
 	NSGAII();
 	struct individual {
-		int rank;					   // ¦ì©ó­ş¼h«eªu
-		double crowding_distance;	   // ¾ÖÀ½¶ZÂ÷
-		vector<double> solution;	   // ¸Ñ
-		double objective1, objective2; // ¦h­Ó¥Ø¼Ğ­È
+		int rank;					   // ä½æ–¼å“ªå±¤å‰æ²¿
+		double crowding_distance;	   // æ“æ“ è·é›¢
+		vector<double> solution;	   // è§£
+		double objective1, objective2; // å¤šå€‹ç›®æ¨™å€¼
 	};
 
 	void RunALG(int run, int func_id, int mnfes, int dim, int pop_size, double CR, double MR);
 
 private:
-	random_device rd;  /*«Å§i¶Ã¼Æ¤ŞÀº*/
+	random_device rd;  /*å®£å‘Šäº‚æ•¸å¼•æ“*/
 	mt19937 gen;
 
 	// command line parameters
-	int run;		// °õ¦æ¦¸¼Æ
-	int func_id;	// ´ú¸Õ¨ç¼Æ½s¸¹
-	int mnfes;		// ³Ì¤j¨ç¼Æµû¦ô¦¸¼Æ
-	int dim;		// °İÃDºû«×
-	int pop_size;	// ¥ÀÅé¤j¤p
-	double CR;		// ¥æ°t²v
-	double MR;		// ÅÜ²§²v
+	int run;		// åŸ·è¡Œæ¬¡æ•¸
+	int func_id;	// æ¸¬è©¦å‡½æ•¸ç·¨è™Ÿ
+	int mnfes;		// æœ€å¤§å‡½æ•¸è©•ä¼°æ¬¡æ•¸
+	int dim;		// å•é¡Œç¶­åº¦
+	int pop_size;	// æ¯é«”å¤§å°
+	double CR;		// äº¤é…ç‡
+	double MR;		// è®Šç•°ç‡
 
 	// algorithm parameters
-	int nfes;					   // ·í«e¨ç¼Æµû¦ô¦¸¼Æ
-	vector<individual> population; // ¥ÀÅé
-	vector<individual> offspring;  // ¤l¥N
+	int nfes;					   // ç•¶å‰å‡½æ•¸è©•ä¼°æ¬¡æ•¸
+	vector<individual> population; // æ¯é«”
+	vector<individual> offspring;  // å­ä»£
 
 	// problem
 	Problem problem1;
@@ -50,33 +50,33 @@ private:
 	void Mutation(vector<individual>& offspring);
 	void Determination();
 
-	void FastNonDominatedSort(const vector<individual>& combined_population); // §Ö³t«D¤ä°t±Æ§Ç
-	void CrowdingDistanceAssignment(vector<individual>& population);          // ¾ÖÀ½¶ZÂ÷¤À°t
+	void FastNonDominatedSort(const vector<individual>& combined_population); // å¿«é€Ÿéæ”¯é…æ’åº
+	void CrowdingDistanceAssignment(vector<individual>& population);          // æ“æ“ è·é›¢åˆ†é…
 
-	void Evaluation(vector<individual>& population); // ¹ê»Úµû¦ô¨ç¼Æ±o¨ì¥Ø¼Ğ­È objective1, objective2, nfes++
+	void Evaluation(vector<individual>& population); // å¯¦éš›è©•ä¼°å‡½æ•¸å¾—åˆ°ç›®æ¨™å€¼ objective1, objective2, nfes++
 
 	double CalMean(const vector<vector<double>>& single_run_pareto_objectives);
 };
 
 NSGAII::NSGAII()
-	: gen(rd()) // ¨Ï¥ÎÀH¾÷³]³Æªì©l¤Æ Mersenne Twister ¶Ã¼Æ¤ŞÀº
+	: gen(rd()) // ä½¿ç”¨éš¨æ©Ÿè¨­å‚™åˆå§‹åŒ– Mersenne Twister äº‚æ•¸å¼•æ“
 {
 }
 
 double NSGAII::CalMean(const vector<vector<double>>& single_run_pareto_objectives) {
-	if (single_run_pareto_objectives.empty()) return -1; // ­YµL¸ê®Æ«h¦^¶Ç -1
-	// ²£¥Í optimal Pareto front ªº¥Ø¼Ğ­È²Õ¦X
+	if (single_run_pareto_objectives.empty()) return -1; // è‹¥ç„¡è³‡æ–™å‰‡å›å‚³ -1
+	// ç”¢ç”Ÿ optimal Pareto front çš„ç›®æ¨™å€¼çµ„åˆ
 	vector<vector<double>> optimal_objectives;
-	double lower = 0.0; // x ªºoptimal½d³ò
+	double lower = 0.0; // x çš„optimalç¯„åœ
 	double upper = 2.0;
 
 	for (int i = 0; i < pop_size; ++i) {
-		double x = lower + (upper - lower) * i / (pop_size - 1);  // µ¥¶Z x ­È
+		double x = lower + (upper - lower) * i / (pop_size - 1);  // ç­‰è· x å€¼
 		double f1 = x * x;
 		double f2 = (x - 2) * (x - 2);
-		optimal_objectives.push_back({ f1, f2 }); // Àx¦s optimal f(x), ¥Ø¼Ğ­È²Õ¦X
+		optimal_objectives.push_back({ f1, f2 }); // å„²å­˜ optimal f(x), ç›®æ¨™å€¼çµ„åˆ
 	}
-	// ­pºâ mean value
+	// è¨ˆç®— mean value
 	double total_dist = 0.0;
 	for (const auto& p : single_run_pareto_objectives) {
 		double min_dist = 1e9;
@@ -110,62 +110,69 @@ void NSGAII::RunALG(int _run, int _func_id, int _mnfes, int _dim, int _pop_size,
 		return;
 	}
 
-	vector<vector<vector<double>>> all_runs_pareto_objectives; // Àx¦s¨Crun°õ¦æªº Pareto objective values
-	vector<double> all_runs_means;							   // Àx¦s¨Crun°õ¦æªº mean value
+	vector<vector<vector<double>>> all_runs_pareto_objectives; // å„²å­˜æ¯runåŸ·è¡Œçš„ Pareto objective values
+	vector<double> all_runs_means;							   // å„²å­˜æ¯runåŸ·è¡Œçš„ mean value
 	for (int r = 0; r < run; ++r) {
 		Init();
 		
-		// ¥D°j°é
+		// ä¸»è¿´åœˆ
 		while (nfes < mnfes) {
-			// ²MªÅ¤l¥N¨Ñ·s¤@¥N¨Ï¥Î
+			// æ¸…ç©ºå­ä»£ä¾›æ–°ä¸€ä»£ä½¿ç”¨
 			offspring.clear();
 
-			// ¥À¥Nªº±Æ§Ç»P¾ÖÀ½¶ZÂ÷­pºâ
+			// æ¯ä»£çš„æ’åºèˆ‡æ“æ“ è·é›¢è¨ˆç®—
 			FastNonDominatedSort(population);
 			CrowdingDistanceAssignment(population);
 
-			// ²£¥Í¤l¥N
+			// ç”¢ç”Ÿå­ä»£
 			Crossover(population, offspring);
 			Mutation(offspring);
 			Evaluation(offspring);
 
-			// ¥À¥N¤l¥N¦X¨Ö«á­n¦A±Æ§Ç»P¾ÖÀ½¶ZÂ÷­pºâ
+			// æ¯ä»£å­ä»£åˆä½µå¾Œè¦å†æ’åºèˆ‡æ“æ“ è·é›¢è¨ˆç®—
 			population.insert(population.end(), offspring.begin(), offspring.end());
 			FastNonDominatedSort(population);
 			CrowdingDistanceAssignment(population);
 
-			// ³Ì²×¿ï¾Ü¤U¤@¥N¥ÀÅé
+			// æœ€çµ‚é¸æ“‡ä¸‹ä¸€ä»£æ¯é«”
 			Determination();
 			// cout << "[Debug] Generation ends, nfes: " << nfes << endl;
 		}
-		// ¦¹runµ²§ô¡A¿é¥Xµ²ªG
+		// æ­¤runçµæŸï¼Œè¼¸å‡ºçµæœ
 		cout << "Pareto Front (Final Population):" << endl;
 		vector<vector<double>> single_run_pareto_objective;
 		for (const auto& ind : population) {
-			if (ind.rank == 1) { // ¥u¿é¥X²Ä¤@¼h Pareto «eªu
+			if (ind.rank == 1) { // åªè¼¸å‡ºç¬¬ä¸€å±¤ Pareto å‰æ²¿
 				cout << "f1: " << ind.objective1 << ", f2: " << ind.objective2 << "" << endl;
-				single_run_pareto_objective.push_back({ ind.objective1, ind.objective2 }); // Àx¦s¦¹run pareto «eªu¥Ø¼Ğ­È
+				single_run_pareto_objective.push_back({ ind.objective1, ind.objective2 }); // å„²å­˜æ­¤run pareto å‰æ²¿ç›®æ¨™å€¼
 			}
 		}
-		all_runs_pareto_objectives.push_back(single_run_pareto_objective); // ¦s¤J¾ãÅérunªº pareto «eªu¥Ø¼Ğ­È
-		all_runs_means.push_back(CalMean(single_run_pareto_objective));	   // ­pºâ¨ÃÀx¦s¦¹runªº mean value
+		all_runs_pareto_objectives.push_back(single_run_pareto_objective); // å­˜å…¥æ•´é«”runçš„ pareto å‰æ²¿ç›®æ¨™å€¼
+		double single_mean = CalMean(single_run_pareto_objective);
+		if (single_mean < 0) {
+			cout << "ç„¡æ³•è¨ˆç®— mean valueï¼Œå› ç‚ºæ­¤ run çš„ Pareto å‰æ²¿ç›®æ¨™å€¼ç‚ºç©ºã€‚" << endl;
+		}
+		else {
+			all_runs_means.push_back(single_mean);	   // è¨ˆç®—ä¸¦å„²å­˜æ­¤runçš„ mean value
+		}
+
 	}
-	// ­pºâ©Ò¦³ run ªº¥­§¡ mean value
+	// è¨ˆç®—æ‰€æœ‰ run çš„å¹³å‡ mean value
 	double avg_mean = accumulate(all_runs_means.begin(), all_runs_means.end(), 0.0) / all_runs_means.size();
 	cout << "avg mean of distances to optimal pareto front: " << avg_mean << endl;
 
-	// ©Ò¦³runsµ²§ô¡A¿é¥Xµ²ªG¨ìÀÉ®×
+	// æ‰€æœ‰runsçµæŸï¼Œè¼¸å‡ºçµæœåˆ°æª”æ¡ˆ
 	nsgaii_fileoutput(run, func_id, mnfes, dim, pop_size, all_runs_pareto_objectives, all_runs_means);
 }
 
-/* ªì©l¤Æ¥ÀÅé */
+/* åˆå§‹åŒ–æ¯é«” */
 void NSGAII::Init() {
 	nfes = 0;
 	population.resize(pop_size);
 	offspring.resize(pop_size);
 	uniform_real_distribution<double> dist(0, 1);
 
-	// ±o¨ì¤W¤U­­
+	// å¾—åˆ°ä¸Šä¸‹é™
 	double lower_bound1, upper_bound1;
 	double lower_bound2, upper_bound2;
 	problem1.GetBounds(lower_bound1, upper_bound1);
@@ -176,75 +183,75 @@ void NSGAII::Init() {
 		population[i].objective1 = 0.0;
 		population[i].objective2 = 0.0;
 		for (int d = 0; d < dim; ++d) {
-			double rand_val = dist(gen); // ²£¥Í [0,1) ¤§¶¡ªº¶Ã¼Æ
-			population[i].solution[d] = lower_bound1 + rand_val * (upper_bound1 - lower_bound1); // ?upper/lower_bound2©O?
+			double rand_val = dist(gen); // ç”¢ç”Ÿ [0,1) ä¹‹é–“çš„äº‚æ•¸
+			population[i].solution[d] = lower_bound1 + rand_val * (upper_bound1 - lower_bound1); // ?upper/lower_bound2å‘¢?
 		}
 		population[i].rank = -1;
 		population[i].crowding_distance = 0.0;
 	}
-	Evaluation(population); // ¥ÀÅé«Ø¦n«á¡Aµû¦ôªì©l¥ÀÅéªº¥Ø¼Ğ­È objective1, objective2
+	Evaluation(population); // æ¯é«”å»ºå¥½å¾Œï¼Œè©•ä¼°åˆå§‹æ¯é«”çš„ç›®æ¨™å€¼ objective1, objective2
 	// cout << "[Debug] Init OK, nfes:" << nfes << endl;
 }
 
-/* §Ö³t«D¤ä°t±Æ§Ç */
+/* å¿«é€Ÿéæ”¯é…æ’åº */
 void NSGAII::FastNonDominatedSort(const vector<individual>& combined_population) {
 	int N = combined_population.size();
-	vector<vector<int>> S(N); // S[i] Àx¦s³Q­ÓÅé i ¤ä°tªº­ÓÅé¯Á¤Ş
-	vector<int> n(N, 0);      // n[i] Àx¦s¤ä°t­ÓÅé i ªº­ÓÅé¼Æ¶q
-	vector<vector<int>> fronts; // Àx¦s¦U«eªuªº­ÓÅé¯Á¤Ş
+	vector<vector<int>> S(N); // S[i] å„²å­˜è¢«å€‹é«” i æ”¯é…çš„å€‹é«”ç´¢å¼•
+	vector<int> n(N, 0);      // n[i] å„²å­˜æ”¯é…å€‹é«” i çš„å€‹é«”æ•¸é‡
+	vector<vector<int>> fronts; // å„²å­˜å„å‰æ²¿çš„å€‹é«”ç´¢å¼•
 	for (int p = 0; p < N; ++p) {
 		for (int q = 0; q < N; ++q) {
-			if (p == q) continue; // ¸õ¹L¦Û¤v
+			if (p == q) continue; // è·³éè‡ªå·±
 			if ((combined_population[p].objective1 < combined_population[q].objective1 && combined_population[p].objective2 <= combined_population[q].objective2) ||
 				(combined_population[p].objective1 <= combined_population[q].objective1 && combined_population[p].objective2 < combined_population[q].objective2)) {
-				S[p].push_back(q); // p ¤ä°t q
+				S[p].push_back(q); // p æ”¯é… q
 			} 
 			else if ((combined_population[q].objective1 < combined_population[p].objective1 && combined_population[q].objective2 <= combined_population[p].objective2) ||
 					 (combined_population[q].objective1 <= combined_population[p].objective1 && combined_population[q].objective2 < combined_population[p].objective2)) {
-				n[p]++; // q ¤ä°t p
+				n[p]++; // q æ”¯é… p
 			}
 		}
-		if (n[p] == 0) { // p¤£¨ü¥ô¦ó­ÓÅé¤ä°t->Äİ©ó²Ä¤@«eªu
-			population[p].rank = 1; // ²Ä¤@«eªu
+		if (n[p] == 0) { // pä¸å—ä»»ä½•å€‹é«”æ”¯é…->å±¬æ–¼ç¬¬ä¸€å‰æ²¿
+			population[p].rank = 1; // ç¬¬ä¸€å‰æ²¿
 			if (fronts.empty()) fronts.push_back(vector<int>());
-			fronts[0].push_back(p); // ¥[¤J²Ä¤@«eªu
+			fronts[0].push_back(p); // åŠ å…¥ç¬¬ä¸€å‰æ²¿
 		}
 	}
-	int r = 0; // ·í«e«eªu¯Á¤Ş
+	int r = 0; // ç•¶å‰å‰æ²¿ç´¢å¼•
 	while (r < fronts.size() && !fronts[r].empty()) {
-		vector<int> next_front;   // ¼È¦s¤U¤@«eªu
-		for (int p : fronts[r]) { // ¹ï·í«e«eªuªº¨C­Ó­ÓÅé p
-			for (int q : S[p]) {  // ¹ï³Q p ¤ä°tªº¨C­Ó­ÓÅé q
-				n[q]--;           // ´î¤Ö¤ä°t q ªº­ÓÅé¼Æ¶q
-				if (n[q] == 0) {  // ¦pªG q ¤£¦A³Q¥ô¦ó­ÓÅé¤ä°t
-					next_front.push_back(q); // ±N q ¥[¤J¤U¤@«eªu
+		vector<int> next_front;   // æš«å­˜ä¸‹ä¸€å‰æ²¿
+		for (int p : fronts[r]) { // å°ç•¶å‰å‰æ²¿çš„æ¯å€‹å€‹é«” p
+			for (int q : S[p]) {  // å°è¢« p æ”¯é…çš„æ¯å€‹å€‹é«” q
+				n[q]--;           // æ¸›å°‘æ”¯é… q çš„å€‹é«”æ•¸é‡
+				if (n[q] == 0) {  // å¦‚æœ q ä¸å†è¢«ä»»ä½•å€‹é«”æ”¯é…
+					next_front.push_back(q); // å°‡ q åŠ å…¥ä¸‹ä¸€å‰æ²¿
 				}
 			}
 		}
 		if (!next_front.empty()) {
-			fronts.push_back(next_front); // ±N¤U¤@«eªu¥[¤J fronts
+			fronts.push_back(next_front); // å°‡ä¸‹ä¸€å‰æ²¿åŠ å…¥ fronts
 		}
-		r++; // ²¾°Ê¨ì¤U¤@«eªu
+		r++; // ç§»å‹•åˆ°ä¸‹ä¸€å‰æ²¿
 	}
-	// §ó·s­ÓÅéªº rank
+	// æ›´æ–°å€‹é«”çš„ rank
 	for (int f = 0; f < fronts.size(); ++f) {
 		for (int idx : fronts[f]) {
-			population[idx].rank = f + 1; // rank ±q 1 ¶}©l
+			population[idx].rank = f + 1; // rank å¾ 1 é–‹å§‹
 		}
 	}
 }
 
-/* ¾ÖÀ½¶ZÂ÷¤À°t */
+/* æ“æ“ è·é›¢åˆ†é… */
 void NSGAII::CrowdingDistanceAssignment(vector<individual>& population) {
 	int N = population.size();
-	if (N == 0) return; // ¥ÀÅé­YªÅª½±µreturn
-	// ªì©l¤Æ¾ÖÀ½¶ZÂ÷
+	if (N == 0) return; // æ¯é«”è‹¥ç©ºç›´æ¥return
+	// åˆå§‹åŒ–æ“æ“ è·é›¢
 	for (int i = 0; i < N; ++i) {
 		population[i].crowding_distance = 0.0;
 	}
-	// ¹ï¨C­Ó¥Ø¼Ğ¶i¦æ±Æ§Ç¨Ã­pºâ¾ÖÀ½¶ZÂ÷
-	for (int m = 1; m <= 2; ++m) { // ¨â­Ó¥Ø¼Ğ
-		// ®Ú¾Ú¥Ø¼Ğ m ±Æ§Ç
+	// å°æ¯å€‹ç›®æ¨™é€²è¡Œæ’åºä¸¦è¨ˆç®—æ“æ“ è·é›¢
+	for (int m = 1; m <= 2; ++m) { // å…©å€‹ç›®æ¨™
+		// æ ¹æ“šç›®æ¨™ m æ’åº
 		if (m == 1) {
 			sort(population.begin(), population.end(), [](const individual& a, const individual& b) {
 				return a.objective1 < b.objective1;
@@ -255,11 +262,11 @@ void NSGAII::CrowdingDistanceAssignment(vector<individual>& population) {
 				return a.objective2 < b.objective2;
 				});
 		}
-		// ³]¸mÃä¬ÉÂIªº¾ÖÀ½¶ZÂ÷¬°µL­­¤j
+		// è¨­ç½®é‚Šç•Œé»çš„æ“æ“ è·é›¢ç‚ºç„¡é™å¤§
 		population[0].crowding_distance = numeric_limits<double>::infinity();
 		population[N - 1].crowding_distance = numeric_limits<double>::infinity();
-		// ­pºâ¨ä¥L­ÓÅéªº¾ÖÀ½¶ZÂ÷
-		double f_min, f_max; // ¥Ø¼Ğ m ªº³Ì¤p­È©M³Ì¤j­È
+		// è¨ˆç®—å…¶ä»–å€‹é«”çš„æ“æ“ è·é›¢
+		double f_min, f_max; // ç›®æ¨™ m çš„æœ€å°å€¼å’Œæœ€å¤§å€¼
 		if (m == 1) {
 			f_min = population[0].objective1;
 			f_max = population[N - 1].objective1;
@@ -268,7 +275,7 @@ void NSGAII::CrowdingDistanceAssignment(vector<individual>& population) {
 			f_min = population[0].objective2;
 			f_max = population[N - 1].objective2;
 		}
-		// ²Ö­p¤¤¶¡­ÓÅéªº¾ÖÀ½¶ZÂ÷
+		// ç´¯è¨ˆä¸­é–“å€‹é«”çš„æ“æ“ è·é›¢
 		for (int i = 1; i < N - 1; ++i) {
 			double prev_obj, next_obj;
 			if (m == 1) {
@@ -280,7 +287,7 @@ void NSGAII::CrowdingDistanceAssignment(vector<individual>& population) {
 				next_obj = population[i + 1].objective2;
 			}
 			if (f_max - f_min == 0) {
-				population[i].crowding_distance += 0.0; // Á×§K°£¥H¹s
+				population[i].crowding_distance += 0.0; // é¿å…é™¤ä»¥é›¶
 			}
 			else {
 				population[i].crowding_distance += (next_obj - prev_obj) / (f_max - f_min);
@@ -289,33 +296,33 @@ void NSGAII::CrowdingDistanceAssignment(vector<individual>& population) {
 	}
 }
 
-/* ¼ÒÀÀ¤G¶i¨î¥æ¤e¡]SBX¡ASimulated Binary Crossover¡^ */
+/* æ¨¡æ“¬äºŒé€²åˆ¶äº¤å‰ï¼ˆSBXï¼ŒSimulated Binary Crossoverï¼‰ */
 void NSGAII::Crossover(const vector<individual>& population, vector<individual>& offspring) {
 	int N = population.size();
-	double eta_c = 20.0; // SBX ¤À§G«ü¼Æ (³q±`³]¬° 10~30)
+	double eta_c = 20.0; // SBX åˆ†ä½ˆæŒ‡æ•¸ (é€šå¸¸è¨­ç‚º 10~30)
 
 	uniform_int_distribution<int> dist_parent(0, N - 1);
 	uniform_real_distribution<double> dist_rate(0, 1);
 
 	for (int i = 0; i < N/2; ++i) {
-		// ÀH¾÷¿ï¾Ü¨â­Ó¤÷¥N
-		int idx_p1 = dist_parent(gen); // ¦³¨S¦³»İ­nÁ×§K­«½Æ¿ï¾Ü?
+		// éš¨æ©Ÿé¸æ“‡å…©å€‹çˆ¶ä»£
+		int idx_p1 = dist_parent(gen); // æœ‰æ²’æœ‰éœ€è¦é¿å…é‡è¤‡é¸æ“‡?
 		int idx_p2 = dist_parent(gen);
 		const individual& parent1 = population[idx_p1];
 		const individual& parent2 = population[idx_p2];
-		// ªì©l¤Æ¨â­Ó¤l¥N
+		// åˆå§‹åŒ–å…©å€‹å­ä»£
 		individual child1, child2;
 		child1.solution.resize(dim);
 		child2.solution.resize(dim);
 		
-		// SBX ¥æ°t²v§PÂ_
-		if (dist_rate(gen) < CR) { // ¶i¦æ¥æ°t
+		// SBX äº¤é…ç‡åˆ¤æ–·
+		if (dist_rate(gen) < CR) { // é€²è¡Œäº¤é…
 			for (int d = 0; d < dim; ++d) {
 				double x1 = parent1.solution[d];
 				double x2 = parent2.solution[d];
 
 				if (fabs(x1 - x2) < 1e-14) {
-					// ­Y¨â­Ó¤÷¥N¦b¸Óºû«×¤W¬Ûµ¥¡A«hª½±µ½Æ»s
+					// è‹¥å…©å€‹çˆ¶ä»£åœ¨è©²ç¶­åº¦ä¸Šç›¸ç­‰ï¼Œå‰‡ç›´æ¥è¤‡è£½
 					child1.solution[d] = x1;
 					child2.solution[d] = x2;
 				}
@@ -324,18 +331,18 @@ void NSGAII::Crossover(const vector<individual>& population, vector<individual>&
 					double y2 = max(x1, x2);
 
 					double rand_beta = dist_rate(gen);
-					double beta; // ¤À§G«Y¼Æ
+					double beta; // åˆ†ä½ˆä¿‚æ•¸
 					if (rand_beta <= 0.5) {
-						beta = pow(2.0 * rand_beta, 1.0 / (eta_c + 1.0));				  // beta ·|¤p©ó 1¡]°¾¦VÂù¿Ë¤¤¶¡¡^
+						beta = pow(2.0 * rand_beta, 1.0 / (eta_c + 1.0));				  // beta æœƒå°æ–¼ 1ï¼ˆåå‘é›™è¦ªä¸­é–“ï¼‰
 					}
 					else {
-						beta = pow(1.0 / (2.0 * (1.0 - rand_beta)), 1.0 / (eta_c + 1.0)); // beta ·|¤j©ó 1¡]°¾¦VÂù¿Ë¥~°¼¡^
+						beta = pow(1.0 / (2.0 * (1.0 - rand_beta)), 1.0 / (eta_c + 1.0)); // beta æœƒå¤§æ–¼ 1ï¼ˆåå‘é›™è¦ªå¤–å´ï¼‰
 					}
-					// ²£¥Í¨â­Ó¤l¥N
+					// ç”¢ç”Ÿå…©å€‹å­ä»£
 					child1.solution[d] = 0.5 * ((1 + beta) * x1 + (1 - beta) * x2);
 					child2.solution[d] = 0.5 * ((1 - beta) * x1 + (1 + beta) * x2);
 
-					// Ãä¬É³B²z¡A¥Hproblem1¬°¥D
+					// é‚Šç•Œè™•ç†ï¼Œä»¥problem1ç‚ºä¸»
 					double lower_bound1, upper_bound1;
 					problem1.GetBounds(lower_bound1, upper_bound1);
 					child1.solution[d] = max(lower_bound1, min(upper_bound1, child1.solution[d]));
@@ -344,12 +351,12 @@ void NSGAII::Crossover(const vector<individual>& population, vector<individual>&
 			}
 		
 		}
-		else { // ¤£¶i¦æ¥æ°t¡Aª½±µ½Æ»s
+		else { // ä¸é€²è¡Œäº¤é…ï¼Œç›´æ¥è¤‡è£½
 			child1.solution = parent1.solution;
 			child2.solution = parent2.solution;
 		}
 
-		// ªì©l¤Æ¤l¥N¨ä¥LÄİ©Ê
+		// åˆå§‹åŒ–å­ä»£å…¶ä»–å±¬æ€§
 		child1.rank = -1;
 		child1.crowding_distance = 0.0;
 		child1.objective1 = 0.0;
@@ -360,23 +367,23 @@ void NSGAII::Crossover(const vector<individual>& population, vector<individual>&
 		child2.objective1 = 0.0;
 		child2.objective2 = 0.0;
 
-		// ±N¤l¥N¥[¤J offspring
+		// å°‡å­ä»£åŠ å…¥ offspring
 		offspring.push_back(child1);
 		offspring.push_back(child2);
 	}
 }
 
-/* ÅÜ²§ */
+/* è®Šç•° */
 void NSGAII::Mutation(vector<individual>& offspring) {
 	int N = offspring.size();
-	double eta_m = 20.0; // ¦hÂIÅÜ²§¤À§G«ü¼Æ (³q±`³]¬° 10~50)
+	double eta_m = 20.0; // å¤šé»è®Šç•°åˆ†ä½ˆæŒ‡æ•¸ (é€šå¸¸è¨­ç‚º 10~50)
 	uniform_real_distribution<double> dist_rate(0, 1);
-	// ±o¨ì¤W¤U­­
+	// å¾—åˆ°ä¸Šä¸‹é™
 	double lower_bound1, upper_bound1;
 	problem1.GetBounds(lower_bound1, upper_bound1);
 	for (int i = 0; i < N; ++i) {
 		for (int d = 0; d < dim; ++d) {
-			if (dist_rate(gen) < MR) { // ¶i¦æÅÜ²§
+			if (dist_rate(gen) < MR) { // é€²è¡Œè®Šç•°
 				double y = offspring[i].solution[d];
 				double delta1 = (y - lower_bound1) / (upper_bound1 - lower_bound1);
 				double delta2 = (upper_bound1 - y) / (upper_bound1 - lower_bound1);
@@ -393,7 +400,7 @@ void NSGAII::Mutation(vector<individual>& offspring) {
 					double val = 2.0 * (1.0 - rand_delta) + 2.0 * (rand_delta - 0.5) * pow(xy, eta_m + 1.0);
 					deltaq = 1.0 - pow(val, mut_pow);
 				}
-				// §ó·sÅÜ²§«áªº­È¨Ã¶i¦æÃä¬É³B²z
+				// æ›´æ–°è®Šç•°å¾Œçš„å€¼ä¸¦é€²è¡Œé‚Šç•Œè™•ç†
 				y = y + deltaq * (upper_bound1 - lower_bound1);
 				y = max(lower_bound1, min(upper_bound1, y));
 				offspring[i].solution[d] = y;
@@ -402,50 +409,50 @@ void NSGAII::Mutation(vector<individual>& offspring) {
 	}
 }
 
-/* µû¦ô¥Ø¼Ğ­È objective1, objective2 */
+/* è©•ä¼°ç›®æ¨™å€¼ objective1, objective2 */
 void NSGAII::Evaluation(vector<individual>& population) {
 	for (auto& ind : population) {
 		ind.objective1 = problem1.Evaluate(ind.solution);
 		ind.objective2 = problem2.Evaluate(ind.solution);
-		nfes += 2; // ¨Cµû¦ô¤@­Ó­ÓÅé¡Anfes ¼W¥[ 2¡]¦]¬°¦³¨â­Ó¥Ø¼Ğ¨ç¼Æ¡^
+		nfes += 2; // æ¯è©•ä¼°ä¸€å€‹å€‹é«”ï¼Œnfes å¢åŠ  2ï¼ˆå› ç‚ºæœ‰å…©å€‹ç›®æ¨™å‡½æ•¸ï¼‰
 	}
 	// cout << "[Debug] Evaluation OK, nfes: " << nfes << endl;
 }
 
-/* ¿ï¾Ü¤U¤@¥N¥ÀÅé */
+/* é¸æ“‡ä¸‹ä¸€ä»£æ¯é«” */
 void NSGAII::Determination() {
-	// «Ø¥ß fronts, Àx¦s¦U«eªuªº­ÓÅé, fronts[0] = ²Ä¤@«eªu, fronts[1] = ²Ä¤G«eªu, ...
+	// å»ºç«‹ fronts, å„²å­˜å„å‰æ²¿çš„å€‹é«”, fronts[0] = ç¬¬ä¸€å‰æ²¿, fronts[1] = ç¬¬äºŒå‰æ²¿, ...
 	vector<vector<individual>> fronts; 
 	for (const auto& ind : population) {
 		if (ind.rank > fronts.size()) {
-			fronts.resize(ind.rank); // °ÊºA½Õ¾ã fronts ¤j¤p
+			fronts.resize(ind.rank); // å‹•æ…‹èª¿æ•´ fronts å¤§å°
 		}
-		fronts[ind.rank - 1].push_back(ind); // §â­ÓÅé©ñ¤J¹ïÀ³ªº rank
+		fronts[ind.rank - 1].push_back(ind); // æŠŠå€‹é«”æ”¾å…¥å°æ‡‰çš„ rank
 	}
 
-	// ¨M©w·sªº¥ÀÅé
-	vector<individual> new_population; // ·sªº¥ÀÅé
-	int new_size = 0;				   // ·s¥ÀÅé­p¼Æ, ¥Î¨Ó½T«O·s¥ÀÅé¤£¶W¹L pop_size
+	// æ±ºå®šæ–°çš„æ¯é«”
+	vector<individual> new_population; // æ–°çš„æ¯é«”
+	int new_size = 0;				   // æ–°æ¯é«”è¨ˆæ•¸, ç”¨ä¾†ç¢ºä¿æ–°æ¯é«”ä¸è¶…é pop_size
 
-	// ¹M¾úfronts¤¤¦U«eªu
+	// éæ­·frontsä¸­å„å‰æ²¿
 	for (auto& front : fronts) {
 		if (new_size + front.size() <= pop_size) {
-			// ¦pªG¾ã­Ó«eªu¥i¥H¥[¤J·s¥ÀÅé
+			// å¦‚æœæ•´å€‹å‰æ²¿å¯ä»¥åŠ å…¥æ–°æ¯é«”
 			new_population.insert(new_population.end(), front.begin(), front.end());
 			new_size += front.size();
 		}
 		else {
-			// ¦pªG«eªuµLªk§¹¥ş¥[¤J·s¥ÀÅé, »İ­n®Ú¾Ú¾ÖÀ½¶ZÂ÷¿ï¾Ü
+			// å¦‚æœå‰æ²¿ç„¡æ³•å®Œå…¨åŠ å…¥æ–°æ¯é«”, éœ€è¦æ ¹æ“šæ“æ“ è·é›¢é¸æ“‡
 			sort(front.begin(), front.end(), [](const individual& a, const individual& b) {
-				return a.crowding_distance > b.crowding_distance; // ¾ÖÀ½¶ZÂ÷¥Ñ¤j¨ì¤p±Æ§Ç
+				return a.crowding_distance > b.crowding_distance; // æ“æ“ è·é›¢ç”±å¤§åˆ°å°æ’åº
 				});
-			int remain = pop_size - new_size; // ³Ñ¾l¥i¥[¤J·s¥ÀÅéªº¦WÃB
+			int remain = pop_size - new_size; // å‰©é¤˜å¯åŠ å…¥æ–°æ¯é«”çš„åé¡
 			new_population.insert(new_population.end(), front.begin(), front.begin() + remain);
 			new_size += remain;
-			break; // ·s¥ÀÅé¤wº¡, °h¥X
+			break; // æ–°æ¯é«”å·²æ»¿, é€€å‡º
 		}
 	}
-	population = new_population; // §ó·s¥ÀÅé
+	population = new_population; // æ›´æ–°æ¯é«”
 }
 
 #endif

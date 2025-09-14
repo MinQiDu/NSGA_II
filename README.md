@@ -16,7 +16,7 @@
 Initialize population P with size N
 Evaluate objectives f1 and f2 for each individual in P
 
-while (NFEs < MaxEvaluations):
+while (nfes < mnfes):
     Perform Fast Non-Dominated Sorting on P
     Assign Crowding Distance for each front in P
 
