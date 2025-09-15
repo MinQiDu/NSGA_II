@@ -50,12 +50,12 @@ private:
 	void Mutation(vector<individual>& offspring);
 	void Determination();
 
-	void FastNonDominatedSort(const vector<individual>& combined_population); // 快速非支配排序
-	void CrowdingDistanceAssignment(vector<individual>& population);          // 擁擠距離分配
+	void FastNonDominatedSort(const vector<individual>& combined_population);	// 快速非支配排序
+	void CrowdingDistanceAssignment(vector<individual>& population);			// 擁擠距離分配
 
-	void Evaluation(vector<individual>& population); // 實際評估函數得到目標值 objective1, objective2, nfes++
+	void Evaluation(vector<individual>& population);							// 實際評估函數得到目標值 objective1, objective2, nfes++
 
-	double CalMean(const vector<vector<double>>& single_run_pareto_objectives);
+	double CalMean(const vector<vector<double>>& single_run_pareto_objectives); // 計算 mean value
 };
 
 NSGAII::NSGAII()
@@ -63,6 +63,7 @@ NSGAII::NSGAII()
 {
 }
 
+/* 計算 mean value */
 double NSGAII::CalMean(const vector<vector<double>>& single_run_pareto_objectives) {
 	if (single_run_pareto_objectives.empty()) return -1; // 若無資料則回傳 -1
 	// 產生 optimal Pareto front 的目標值組合
@@ -153,7 +154,7 @@ void NSGAII::RunALG(int _run, int _func_id, int _mnfes, int _dim, int _pop_size,
 			cout << "無法計算 mean value，因為此 run 的 Pareto 前沿目標值為空。" << endl;
 		}
 		else {
-			all_runs_means.push_back(single_mean);	   // 計算並儲存此run的 mean value
+			all_runs_means.push_back(single_mean); // 計算並儲存此run的 mean value
 		}
 
 	}
