@@ -21,7 +21,7 @@ void nsgaii_fileoutput(
 		ofstream file(filename);
 
 		if (!file.is_open()) {
-			cerr << "❌ 無法開啟檔案: " << filename << endl;
+			cerr << "無法開啟檔案: " << filename << endl;
 			continue;
 		}
 
@@ -30,6 +30,6 @@ void nsgaii_fileoutput(
 			file << fixed << setprecision(10) << obj[0] << "," << obj[1] << "\n";
 		}
 		file.close();
-		cout << "✅ 輸出 Pareto Front: " << filename << endl;
+		cout << "輸出 Pareto Front: " << filename << endl;
 	}
 }

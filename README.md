@@ -188,7 +188,8 @@ NSGAII_BiObjective/
   <img src="results/pareto_SCH_pop100.png" width="50%"/>
 </p>
 
-#### 執行 4 run 後合併前沿, pop_size = 25, Evaluation times = 6250 * 4 = 25000
+#### 執行 4 runs 後合併前沿, pop_size = 25, Evaluation times = 6250 * 4 = 25000
+#### 因為沒有對 4 runs 的前沿解做 CrowdingDistanceAssignment() 處理，因此分布較不均勻
 <p align="left">
   <img src="results/pareto_SCH_pop25_4run.png" width="50%"/>
 </p>
@@ -198,6 +199,8 @@ NSGAII_BiObjective/
 - NSGA-II 成功產生平衡分布的 Pareto 前沿，符合原論文 SCH 問題的理論最佳解分布。
 - 前沿族群的個體數量隨參數（如人口大小、迭代次數）而變化，但分布穩定。
 - 人口數量大雖然使前沿分布更密，卻不保證收斂程度及分布均勻度高，過大反而導致計算量負擔。
+- 加入 adaptive pop_size strategy 的效果?
+- 好的 pareto front 定義是否因應不同使用場景而有所改動，分布完整性 v.s 收斂度?
 
 ---
 ## ( X ) Key Features
