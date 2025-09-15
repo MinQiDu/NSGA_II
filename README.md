@@ -90,7 +90,7 @@ NSGAII.exe {run} {func_id} {mnfes} {dim} {pop_size} {CR} {MR}
 
 ## ( IV ) Output
 
-- `temp_results/pareto_run{r}.csv`  
+- `pareto_run{r}.csv`  
   - Each CSV contains one run’s final first-front (f1, f2)
 
 - Example content:
@@ -121,7 +121,7 @@ g++ main.cpp -o run.exe -std=c++11
 ./run.exe 1 1 25000 1 100 0.9 0.1
 ```
 
-這會執行 1 次 NSGA-II，維度為 1，產生 `temp_results/pareto_run{1}.csv`
+這會執行 1 次 NSGA-II，維度為 1，產生 `pareto_run{1}.csv`
 
 ---
 
@@ -169,11 +169,13 @@ NSGAII_BiObjective/
 ├── nsgaii_fileoutput.h       ← 輸出 Pareto 前沿 CSV
 ├── problem.h                 ← 多目標函數定義 (f1, f2)
 ├── nsgaii_plot
-│   └── plot_pareto_{FunctionName}.py ← Python 畫圖工具
-├── temp_results/            ← 每個 run 的 Pareto Front CSV
-│   ├── pareto_run1.csv
+│   ├── plot_pareto_{FunctionName}.py ← Python 畫圖工具
+│   ├── pareto_run1.csv               ← 每個 run 的 Pareto Front CSV
 │   ├── pareto_run2.csv
 │   └── ...
+├── results/       
+│   ├── pareto_SCH_pop100.png
+│   └── ...     
 └── README.md                ← 使用說明文件
 ```
 

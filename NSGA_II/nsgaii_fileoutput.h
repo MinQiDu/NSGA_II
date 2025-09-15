@@ -17,7 +17,7 @@ void nsgaii_fileoutput(
 ) {
 	// ====== 1. 輸出每個 run 的 Pareto Front objectives ======
 	for (int run_id = 0; run_id < _run; ++run_id) {
-		string filename = "temp_results/pareto_run" + to_string(run_id + 1) + ".csv";
+		string filename = "pareto_run" + to_string(run_id + 1) + ".csv";
 		ofstream file(filename);
 
 		if (!file.is_open()) {
